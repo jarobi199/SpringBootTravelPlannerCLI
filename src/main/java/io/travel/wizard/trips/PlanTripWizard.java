@@ -8,6 +8,9 @@ import java.util.List;
 public class PlanTripWizard implements IWizard {
     @Override
     public List<IWizardStep> getSteps() {
-        return List.of(new CollectTripDetailsStep());
+        return List.of(
+                new CollectTripDetailsStep(),
+                new ConfirmTripStep(),
+                new SaveTripStep());
     }
 }

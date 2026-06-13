@@ -16,10 +16,9 @@ public class AuthenticationService {
     public boolean authenticate(String username, String password) {
         boolean authenticated = false;
         List<User> users = userRepository.findByUsername(username);
-        User user = users.getFirst();
-        if ((user != null) && PasswordEncryptor.authenticate(password, user.getPassword())) {
+        if ((!users.isEmpty())  &&  (users.getFirst() != null) && PasswordEncryptor.authenticate(password, users.getFirst().getPassword())) {
             authenticated = true;
-            SessionContext.setCurrentUser(user);
+            SessionContext.setCurrentUser(users.getFirst());
         }
 
         return authenticated;

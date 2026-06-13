@@ -20,7 +20,7 @@ public class CollectTripDetailsStep implements IWizardStep {
         String country = InputHandler.getStringInput();
         System.out.println("Enter the start date (yyyy-mm-dd):");
         LocalDate startDate = InputHandler.getDateInput();
-        System.out.println("Enter the name of the trip (yyyy-mm-dd)::");
+        System.out.println("Enter the end date (yyyy-mm-dd)::");
         LocalDate endDate = InputHandler.getDateInput();
         System.out.println("Enter the budget:");
         int budget = InputHandler.getIntegerInput();
