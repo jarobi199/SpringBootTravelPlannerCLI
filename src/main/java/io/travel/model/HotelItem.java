@@ -11,14 +11,14 @@ public class HotelItem extends ItineraryItem {
     private String address;
     private LocalDate checkInDate;
     private LocalDate checkOutDate;
-    private double price;
+    private int price;
     private String confirmationCode;
 
     public HotelItem() {
         //No argument constructor
     }
 
-    public HotelItem(int dayNumber, ItemType itemType, String name, String address, LocalDate checkInDate, LocalDate checkOutDate, double price, String confirmationCode) {
+    public HotelItem(int dayNumber, ItemType itemType, String name, String address, LocalDate checkInDate, LocalDate checkOutDate, int price, String confirmationCode) {
         super(dayNumber, itemType);
         this.name = name;
         this.address = address;
@@ -60,11 +60,11 @@ public class HotelItem extends ItineraryItem {
         this.checkOutDate = checkOutDate;
     }
 
-    public double getPrice() {
+    public int getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(int price) {
         this.price = price;
     }
 
@@ -77,7 +77,7 @@ public class HotelItem extends ItineraryItem {
     }
 
     @Override
-    public double getEstimatedCost() {
-        return ChronoUnit.DAYS.between(checkInDate, checkOutDate) * price;
+    public int getEstimatedCost() {
+        return Math.toIntExact(ChronoUnit.DAYS.between(checkInDate, checkOutDate) * price);
     }
 }

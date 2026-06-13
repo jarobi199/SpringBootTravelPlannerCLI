@@ -66,7 +66,7 @@ public class ActivityItem extends ItineraryItem {
     }
 
     @Override
-    public double getEstimatedCost() {
+    public int getEstimatedCost() {
         return actualCost;
     }
 

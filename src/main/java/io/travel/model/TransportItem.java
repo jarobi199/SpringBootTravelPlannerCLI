@@ -77,7 +77,7 @@ public class TransportItem extends ItineraryItem{
     }
 
     @Override
-    public double getEstimatedCost() {
+    public int getEstimatedCost() {
         return actualCost;
     }
 }

@@ -10,13 +10,13 @@ public class RestaurantItem extends ItineraryItem {
     private String cuisine;
     private LocalDateTime dateTime;
     private int  numberOfGuests;
-    private double estimatedCostPerGuest;
+    private int estimatedCostPerGuest;
 
     public RestaurantItem() {
         //No argument constructor
     }
 
-    public RestaurantItem(int dayNumber, ItemType itemType, String name, String cuisine, LocalDateTime dateTime, int numberOfGuests, double estimatedCostPerGuest) {
+    public RestaurantItem(int dayNumber, ItemType itemType, String name, String cuisine, LocalDateTime dateTime, int numberOfGuests, int estimatedCostPerGuest) {
         super(dayNumber, itemType);
         this.name = name;
         this.cuisine = cuisine;
@@ -57,16 +57,16 @@ public class RestaurantItem extends ItineraryItem {
         this.numberOfGuests = numberOfGuests;
     }
 
-    public double getEstimatedCostPerGuest() {
+    public int getEstimatedCostPerGuest() {
         return estimatedCostPerGuest;
     }
 
-    public void setEstimatedCostPerGuest(double estimatedCostPerGuest) {
+    public void setEstimatedCostPerGuest(int estimatedCostPerGuest) {
         this.estimatedCostPerGuest = estimatedCostPerGuest;
     }
 
     @Override
-    public double getEstimatedCost() {
+    public int getEstimatedCost() {
         return numberOfGuests * estimatedCostPerGuest;
     }
 }

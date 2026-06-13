@@ -8,7 +8,7 @@ public abstract class ItineraryItem {
     protected String id;
     protected int dayNumber;
     protected ItemType itemType;
-    protected double actualCost;
+    protected int actualCost;
 
     public ItineraryItem() {
         //No argument constructor
@@ -35,13 +35,14 @@ public abstract class ItineraryItem {
         this.dayNumber = dayNumber;
     }
 
-    public double getActualCost() {
+    public int getActualCost() {
         return actualCost;
     }
 
-    public void setActualCost(double actualCost) {
+    public void setActualCost(int actualCost) {
         this.actualCost = actualCost;
     }
+
     public ItemType getItemType() {
         return itemType;
     }
@@ -50,6 +51,6 @@ public abstract class ItineraryItem {
         this.itemType = itemType;
     }
 
-    public abstract double getEstimatedCost();
+    public abstract int getEstimatedCost();
 
 }

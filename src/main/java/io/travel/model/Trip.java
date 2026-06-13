@@ -15,7 +15,7 @@ public class Trip {
     private String country;
     private LocalDate startDate;
     private LocalDate endDate;
-    private double totalBudget;
+    private int totalBudget;
     private TripStatus status;
     private List<ItineraryItem> itineraries;
     private List<JournalEntry> journals;
@@ -25,7 +25,7 @@ public class Trip {
         this.journals = new ArrayList<>();
     }
 
-    public Trip(String userId, String name, String country, LocalDate startDate, LocalDate endDate, double totalBudget, TripStatus status) {
+    public Trip(String userId, String name, String country, LocalDate startDate, LocalDate endDate, int totalBudget, TripStatus status) {
         this.userId = userId;
         this.name = name;
         this.country = country;
@@ -85,11 +85,11 @@ public class Trip {
         this.endDate = endDate;
     }
 
-    public double getTotalBudget() {
+    public int getTotalBudget() {
         return totalBudget;
     }
 
-    public void setTotalBudget(double totalBudget) {
+    public void setTotalBudget(int totalBudget) {
         this.totalBudget = totalBudget;
     }
 
