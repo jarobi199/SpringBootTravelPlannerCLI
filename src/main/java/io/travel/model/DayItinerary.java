@@ -1,4 +1,6 @@
 package io.travel.model;
 
-public class DayItinerary {
-}
+import java.time.LocalDate;
+import java.util.List;
+
+public record DayItinerary(int dayNumber, LocalDate date, List<ItineraryItem> items, double estimatedTotal) {}
