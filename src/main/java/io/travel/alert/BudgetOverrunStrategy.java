@@ -1,5 +1,8 @@
 package io.travel.alert;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class BudgetOverrunStrategy implements AlertStrategy {
     @Override
     public boolean supports(AlertContext context) {

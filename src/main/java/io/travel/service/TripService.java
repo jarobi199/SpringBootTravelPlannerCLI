@@ -23,6 +23,10 @@ public class TripService {
         return tripRepository.findAll();
     }
 
+    public List<Trip> findAllTripsByUserId(String userId) {
+        return tripRepository.findByUserId(userId);
+    }
+
     public void saveTrip(Trip trip) {
         tripRepository.save(trip);
     }
