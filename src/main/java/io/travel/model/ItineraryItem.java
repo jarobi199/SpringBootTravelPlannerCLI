@@ -1,4 +1,55 @@
 package io.travel.model;
 
+import io.travel.enums.ItemType;
+import org.springframework.data.annotation.Id;
+
 public abstract class ItineraryItem {
+    @Id
+    protected String id;
+    protected int dayNumber;
+    protected ItemType itemType;
+    protected double actualCost;
+
+    public ItineraryItem() {
+        //No argument constructor
+    }
+
+    public ItineraryItem(int dayNumber, ItemType itemType) {
+        this.dayNumber = dayNumber;
+        this.itemType = itemType;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public int getDayNumber() {
+        return dayNumber;
+    }
+
+    public void setDayNumber(int dayNumber) {
+        this.dayNumber = dayNumber;
+    }
+
+    public double getActualCost() {
+        return actualCost;
+    }
+
+    public void setActualCost(double actualCost) {
+        this.actualCost = actualCost;
+    }
+    public ItemType getItemType() {
+        return itemType;
+    }
+
+    public void setItemType(ItemType itemType) {
+        this.itemType = itemType;
+    }
+
+    public abstract double getEstimatedCost();
+
 }

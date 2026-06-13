@@ -14,6 +14,8 @@ public class SpringBootTravelPlannerCLIApplication implements CommandLineRunner 
 
     @Autowired
     private AuthenticationMenu authenticationMenu;
+    @Autowired
+    private MainMenu mainMenu;
 
     static void main(String[] args) {
         new SpringApplicationBuilder(SpringBootTravelPlannerCLIApplication.class)
@@ -28,8 +30,9 @@ public class SpringBootTravelPlannerCLIApplication implements CommandLineRunner 
         System.out.println();
 
         authenticationMenu.show();
-
-        MainMenu mainMenu = new MainMenu();
         mainMenu.show();
+
+        System.out.println();
+        System.out.println("GOODBYE!");
     }
 }
