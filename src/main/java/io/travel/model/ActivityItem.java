@@ -70,4 +70,13 @@ public class ActivityItem extends ItineraryItem {
         return actualCost;
     }
 
+    @Override
+    public String toString() {
+        return super.toString() + "\n" +
+                "Name: " + name + "\n" +
+                "Venue: " + venue + "\n" +
+                "Date and time: " + dateTime + "\n" +
+                "Hours: " + hours + "\n" +
+                "Notes: " + notes + "\n" ;
+    }
 }

@@ -80,4 +80,15 @@ public class HotelItem extends ItineraryItem {
     public int getEstimatedCost() {
         return Math.toIntExact(ChronoUnit.DAYS.between(checkInDateTime, checkOutDateTime) * price);
     }
+
+    @Override
+    public String toString() {
+        return super.toString() + "\n" +
+                "Name: " + name + "\n" +
+                "Address: " + address + "\n" +
+                "Check-in date and time:" + checkInDateTime + "\n" +
+                "Check-out date and time: " + checkOutDateTime + "\n" +
+                "Price: " + price + "\n" +
+                "Confirmation code: " + confirmationCode + "\n";
+    }
 }
