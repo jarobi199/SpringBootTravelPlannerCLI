@@ -80,4 +80,15 @@ public class TransportItem extends ItineraryItem{
     public int getEstimatedCost() {
         return actualCost;
     }
+
+    @Override
+    public String toString() {
+        return super.toString() + "\n" +
+                "Transport type: " + transportType + "\n" +
+                "From location: '" + fromLocation + "\n" +
+                "To location: " + toLocation + "\n" +
+                "Date time: " + dateTime + "\n" +
+                "Provider: " + provider + "\n" +
+                "Notes: '" + notes + "\n";
+    }
 }
