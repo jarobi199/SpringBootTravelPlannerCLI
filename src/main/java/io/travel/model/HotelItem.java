@@ -18,8 +18,8 @@ public class HotelItem extends ItineraryItem {
         //No argument constructor
     }
 
-    public HotelItem(int dayNumber, ItemType itemType, int actualCost, String name, String address, LocalDateTime checkInDateTime, LocalDateTime checkOutDateTime, int price, String confirmationCode) {
-        super(dayNumber, itemType, actualCost);
+    public HotelItem(int dayNumber, ItemType itemType, String name, String address, LocalDateTime checkInDateTime, LocalDateTime checkOutDateTime, int price, String confirmationCode) {
+        super(dayNumber, itemType);
         this.name = name;
         this.address = address;
         this.checkInDateTime = checkInDateTime;

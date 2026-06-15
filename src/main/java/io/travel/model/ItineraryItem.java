@@ -14,10 +14,9 @@ public abstract class ItineraryItem {
         //No argument constructor
     }
 
-    public ItineraryItem(int dayNumber, ItemType itemType, int actualCost) {
+    public ItineraryItem(int dayNumber, ItemType itemType) {
         this.dayNumber = dayNumber;
         this.itemType = itemType;
-        this.actualCost = actualCost;
     }
 
     public String getId() {

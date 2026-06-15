@@ -11,13 +11,15 @@ public class ActivityItem extends ItineraryItem {
     private LocalDateTime dateTime;
     private int hours;
     private String notes;
+    private int estimatedCost;
 
     public ActivityItem() {
         //No argument constructor
     }
 
-    public ActivityItem(int dayNumber, ItemType itemType, int actualCost, String name, String venue, LocalDateTime date, int hours, String notes) {
-        super(dayNumber, itemType, actualCost);
+    public ActivityItem(int dayNumber, ItemType itemType, int estimatedCost, String name, String venue, LocalDateTime date, int hours, String notes) {
+        super(dayNumber, itemType);
+        this.estimatedCost = estimatedCost;
         this.name = name;
         this.venue = venue;
         this.dateTime = date;
@@ -67,7 +69,7 @@ public class ActivityItem extends ItineraryItem {
 
     @Override
     public int getEstimatedCost() {
-        return actualCost;
+        return estimatedCost;
     }
 
     @Override

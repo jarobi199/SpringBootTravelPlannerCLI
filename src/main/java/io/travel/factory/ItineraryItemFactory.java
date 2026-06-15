@@ -12,19 +12,17 @@ public class ItineraryItemFactory {
     public static ItineraryItem create(ItemType itemType) {
         System.out.println("Enter the day number:");
         int dayNumber = InputHandler.getIntegerInput();
-        System.out.println("Enter the actual cost:");
-        int actualCost = InputHandler.getIntegerInput();
 
         return switch (itemType) {
-            case FLIGHT -> createFlightItem(dayNumber, actualCost);
-            case HOTEL -> createHotelItem(dayNumber, actualCost);
-            case ACTIVITY -> createActivityItem(dayNumber, actualCost);
-            case RESTAURANT -> createRestaurantItem(dayNumber, actualCost);
-            case TRANSPORT -> createTransportItem(dayNumber, actualCost);
+            case FLIGHT -> createFlightItem(dayNumber);
+            case HOTEL -> createHotelItem(dayNumber);
+            case ACTIVITY -> createActivityItem(dayNumber);
+            case RESTAURANT -> createRestaurantItem(dayNumber);
+            case TRANSPORT -> createTransportItem(dayNumber);
         };
     }
 
-    private static ItineraryItem createFlightItem(int dayNumber, int actualCost) {
+    private static ItineraryItem createFlightItem(int dayNumber) {
         System.out.println("Enter the name of the airline:");
         String airline = InputHandler.getStringInput();
         System.out.println("Enter the name of the flight number:");
@@ -39,11 +37,13 @@ public class ItineraryItemFactory {
         LocalDateTime departureTime = LocalDateTime.parse(InputHandler.getStringInput());
         System.out.println("Enter the name of the confirmation code:");
         String confirmationCode = InputHandler.getStringInput();
+        System.out.println("Enter the estimated cost:");
+        int estimatedCost = InputHandler.getIntegerInput();
 
-        return new FlightItem(dayNumber, ItemType.FLIGHT, actualCost, airline, flightNumber, departureAirport,arrivalAirport, departureTime, arrivalTime, confirmationCode);
+        return new FlightItem(dayNumber, ItemType.FLIGHT, estimatedCost, airline, flightNumber, departureAirport,arrivalAirport, departureTime, arrivalTime, confirmationCode);
     }
 
-    private static ItineraryItem createHotelItem(int dayNumber, int actualCost) {
+    private static ItineraryItem createHotelItem(int dayNumber) {
         System.out.println("Enter the name of the hotel:");
         String name = InputHandler.getStringInput();
         System.out.println("Enter the address of the hotel:");
@@ -54,11 +54,13 @@ public class ItineraryItemFactory {
         LocalDateTime checkOut = LocalDateTime.parse(InputHandler.getStringInput());
         System.out.println("Enter the name of the confirmation code:");
         String confirmationCode = InputHandler.getStringInput();
+        System.out.println("Enter the price of the hotel for one night:");
+        int price = InputHandler.getIntegerInput();
 
-        return new HotelItem(dayNumber, ItemType.HOTEL, actualCost, name, address, checkIn, checkOut,  actualCost, confirmationCode);
+        return new HotelItem(dayNumber, ItemType.HOTEL, name, address, checkIn, checkOut, price, confirmationCode);
     }
 
-    private static ItineraryItem createActivityItem(int dayNumber, int actualCost) {
+    private static ItineraryItem createActivityItem(int dayNumber) {
         System.out.println("Enter the name of the activity:");
         String name = InputHandler.getStringInput();
         System.out.println("Enter the name of the venue:");
@@ -74,10 +76,10 @@ public class ItineraryItemFactory {
         System.out.println("Enter the name of the confirmation code:");
         String confirmationCode = InputHandler.getStringInput();
 
-        return new ActivityItem(dayNumber, ItemType.ACTIVITY, actualCost, name, venue, dateTime, duration,  notes);
+        return new ActivityItem(dayNumber, ItemType.ACTIVITY, estimatedCost, name, venue, dateTime, duration,  notes);
     }
 
-    private static ItineraryItem createRestaurantItem(int dayNumber, int actualCost) {
+    private static ItineraryItem createRestaurantItem(int dayNumber) {
         System.out.println("Enter the name of the restaurant:");
         String name = InputHandler.getStringInput();
         System.out.println("Enter the name of the cuisine:");
@@ -86,13 +88,13 @@ public class ItineraryItemFactory {
         LocalDateTime dateTime = LocalDateTime.parse(InputHandler.getStringInput());
         System.out.println("Enter the number of guests:");
         int numberOfGuests = InputHandler.getIntegerInput();
-        System.out .println("Enter the estimated cost for guests:");
-        int estimatedCost = InputHandler.getIntegerInput();
+        System.out .println("Enter the estimated cost per guest:");
+        int estimatedCostPerGuest = InputHandler.getIntegerInput();
 
-        return new RestaurantItem(dayNumber, ItemType.RESTAURANT, actualCost, name, cuisine, dateTime, numberOfGuests,  estimatedCost);
+        return new RestaurantItem(dayNumber, ItemType.RESTAURANT, estimatedCostPerGuest, name, cuisine, dateTime, numberOfGuests);
     }
 
-    private static ItineraryItem createTransportItem(int dayNumber, int actualCost) {
+    private static ItineraryItem createTransportItem(int dayNumber) {
         System.out.println("Enter the transport type (TAXI, BUS, TRAIN, FERRY, RENTAL_CAR, RIDESHARE , OTHER):");
         TransportType transportType = TransportType.valueOf(InputHandler.getStringInput());
         System.out.println("Enter the from the location:");
@@ -108,7 +110,7 @@ public class ItineraryItemFactory {
         System.out.println("Enter the notes:");
         String notes = InputHandler.getStringInput();
 
-        return new TransportItem(dayNumber, ItemType.TRANSPORT, actualCost, transportType, fromLocation, toLocation, dateTime, provider, notes);
+        return new TransportItem(dayNumber, ItemType.TRANSPORT, estimatedCost, transportType, fromLocation, toLocation, dateTime, provider, notes);
     }
 
 }

@@ -13,14 +13,16 @@ public class FlightItem extends ItineraryItem {
     private LocalDateTime departureTime;
     private LocalDateTime arrivalTime;
     private String confirmationCode;
+    private int estimatedCost;
 
     public FlightItem() {
         //No argument constructor
     }
 
-    public FlightItem(int dayNumber, ItemType itemType, int actualCost, String airline, String flightNumber, String departureAirport, String arrivalAirport,
+    public FlightItem(int dayNumber, ItemType itemType, int estimatedCost, String airline, String flightNumber, String departureAirport, String arrivalAirport,
                       LocalDateTime departureTime, LocalDateTime arrivalTime, String confirmationCode) {
-        super(dayNumber, itemType, actualCost);
+        super(dayNumber, itemType);
+        this.estimatedCost = estimatedCost;
         this.airline = airline;
         this.flightNumber = flightNumber;
         this.departureAirport = departureAirport;
@@ -88,7 +90,7 @@ public class FlightItem extends ItineraryItem {
 
     @Override
     public int getEstimatedCost() {
-        return actualCost;
+        return estimatedCost;
     }
 
     @Override

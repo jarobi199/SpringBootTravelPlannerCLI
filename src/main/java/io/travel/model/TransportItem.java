@@ -13,13 +13,15 @@ public class TransportItem extends ItineraryItem{
     private LocalDateTime dateTime;
     private String provider;
     private String notes;
+    private int estimatedCost;
 
     public TransportItem() {
         //No argument constructor
     }
 
-    public TransportItem(int dayNumber, ItemType itemType, int actualCost, TransportType transportType, String fromLocation, String toLocation, LocalDateTime dateTime, String provider, String notes) {
-        super(dayNumber, itemType, actualCost);
+    public TransportItem(int dayNumber, ItemType itemType, int estimatedCost, TransportType transportType, String fromLocation, String toLocation, LocalDateTime dateTime, String provider, String notes) {
+        super(dayNumber, itemType);
+        this.estimatedCost = estimatedCost;
         this.transportType = transportType;
         this.fromLocation = fromLocation;
         this.toLocation = toLocation;
@@ -78,7 +80,7 @@ public class TransportItem extends ItineraryItem{
 
     @Override
     public int getEstimatedCost() {
-        return actualCost;
+        return estimatedCost;
     }
 
     @Override

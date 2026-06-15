@@ -16,13 +16,13 @@ public class RestaurantItem extends ItineraryItem {
         //No argument constructor
     }
 
-    public RestaurantItem(int dayNumber, ItemType itemType,  int actualCost, String name, String cuisine, LocalDateTime dateTime, int numberOfGuests, int estimatedCostPerGuest) {
-        super(dayNumber, itemType, actualCost);
+    public RestaurantItem(int dayNumber, ItemType itemType,  int estimatedCostPerGuest, String name, String cuisine, LocalDateTime dateTime, int numberOfGuests) {
+        super(dayNumber, itemType);
+        this.estimatedCostPerGuest = estimatedCostPerGuest;
         this.name = name;
         this.cuisine = cuisine;
         this.dateTime = dateTime;
         this.numberOfGuests = numberOfGuests;
-        this.estimatedCostPerGuest = estimatedCostPerGuest;
     }
 
     public String getName() {
