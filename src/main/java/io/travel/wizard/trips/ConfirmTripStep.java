@@ -12,7 +12,7 @@ public class ConfirmTripStep implements IWizardStep {
     public WizardResult execute(WizardContext context) {
         Trip trip = context.getSelectedTrip();
         WizardResult result = WizardResult.CONTINUE;
-
+        System.out.println(trip);
         System.out.println();
         System.out.println("Confirm? (Y/N):");
         String confirm = InputHandler.getStringInput();
