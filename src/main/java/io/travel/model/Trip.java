@@ -116,4 +116,15 @@ public class Trip {
     public void setJournals(List<JournalEntry> journals) {
         this.journals = journals;
     }
+
+    @Override
+    public String toString() {
+        return "TRIP DETAILS:\n" +
+                "Name: '" + name + "\n" +
+                "Country: '" + country + "\n" +
+                "Start date:" + startDate + "\n" +
+                "End date: " + endDate + "\n" +
+                "Budget: " + totalBudget + "\n" +
+                "Status: " + status + "\n";
+    }
 }

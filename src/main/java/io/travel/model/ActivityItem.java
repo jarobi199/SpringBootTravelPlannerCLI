@@ -16,8 +16,8 @@ public class ActivityItem extends ItineraryItem {
         //No argument constructor
     }
 
-    public ActivityItem(int dayNumber, ItemType itemType, String name, String venue, LocalDateTime date, int hours, String notes) {
-        super(dayNumber, itemType);
+    public ActivityItem(int dayNumber, ItemType itemType, int actualCost, String name, String venue, LocalDateTime date, int hours, String notes) {
+        super(dayNumber, itemType, actualCost);
         this.name = name;
         this.venue = venue;
         this.dateTime = date;

@@ -18,8 +18,8 @@ public class TransportItem extends ItineraryItem{
         //No argument constructor
     }
 
-    public TransportItem(int dayNumber, ItemType itemType, TransportType transportType, String fromLocation, String toLocation, LocalDateTime dateTime, String provider, String notes) {
-        super(dayNumber, itemType);
+    public TransportItem(int dayNumber, ItemType itemType, int actualCost, TransportType transportType, String fromLocation, String toLocation, LocalDateTime dateTime, String provider, String notes) {
+        super(dayNumber, itemType, actualCost);
         this.transportType = transportType;
         this.fromLocation = fromLocation;
         this.toLocation = toLocation;

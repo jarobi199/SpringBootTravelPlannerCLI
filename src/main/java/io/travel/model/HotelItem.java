@@ -2,15 +2,15 @@ package io.travel.model;
 
 import io.travel.enums.ItemType;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
 
 public class HotelItem extends ItineraryItem {
     private String name;
     private String address;
-    private LocalDate checkInDate;
-    private LocalDate checkOutDate;
+    private LocalDateTime checkInDateTime;
+    private LocalDateTime checkOutDateTime;
     private int price;
     private String confirmationCode;
 
@@ -18,12 +18,12 @@ public class HotelItem extends ItineraryItem {
         //No argument constructor
     }
 
-    public HotelItem(int dayNumber, ItemType itemType, String name, String address, LocalDate checkInDate, LocalDate checkOutDate, int price, String confirmationCode) {
-        super(dayNumber, itemType);
+    public HotelItem(int dayNumber, ItemType itemType, int actualCost, String name, String address, LocalDateTime checkInDateTime, LocalDateTime checkOutDateTime, int price, String confirmationCode) {
+        super(dayNumber, itemType, actualCost);
         this.name = name;
         this.address = address;
-        this.checkInDate = checkInDate;
-        this.checkOutDate = checkOutDate;
+        this.checkInDateTime = checkInDateTime;
+        this.checkOutDateTime = checkOutDateTime;
         this.price = price;
         this.confirmationCode = confirmationCode;
     }
@@ -44,20 +44,20 @@ public class HotelItem extends ItineraryItem {
         this.address = address;
     }
 
-    public LocalDate getCheckInDate() {
-        return checkInDate;
+    public LocalDateTime checkInDateTime() {
+        return checkInDateTime;
     }
 
-    public void setCheckInDate(LocalDate checkInDate) {
-        this.checkInDate = checkInDate;
+    public void setCheckInDate(LocalDateTime checkInDateTime) {
+        this.checkInDateTime = checkInDateTime;
     }
 
-    public LocalDate getCheckOutDate() {
-        return checkOutDate;
+    public LocalDateTime getCheckOutDateTime() {
+        return checkOutDateTime;
     }
 
-    public void setCheckOutDate(LocalDate checkOutDate) {
-        this.checkOutDate = checkOutDate;
+    public void setCheckOutDateTime(LocalDateTime checkOutDateTime) {
+        this.checkOutDateTime = checkOutDateTime;
     }
 
     public int getPrice() {
@@ -78,6 +78,6 @@ public class HotelItem extends ItineraryItem {
 
     @Override
     public int getEstimatedCost() {
-        return Math.toIntExact(ChronoUnit.DAYS.between(checkInDate, checkOutDate) * price);
+        return Math.toIntExact(ChronoUnit.DAYS.between(checkInDateTime, checkOutDateTime) * price);
     }
 }
