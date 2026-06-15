@@ -1,5 +1,6 @@
 package io.travel.service;
 
+import io.travel.enums.TripStatus;
 import io.travel.exception.EntityNotFoundException;
 import io.travel.model.Trip;
 import io.travel.repository.TripRepository;
@@ -29,6 +30,13 @@ public class TripService {
 
     public void saveTrip(Trip trip) {
         tripRepository.save(trip);
+    }
+
+    public List<Trip> findByUserIdAndStatusIn(String userId,  List<TripStatus> statuses) {
+        if(statuses == null) {
+            return tripRepository.findByUserId(userId);
+        }
+        return tripRepository.findByUserIdAndStatusIn(userId, statuses);
     }
 
 }

@@ -9,7 +9,9 @@ public class BudgetWizard implements IWizard {
 
     @Override
     public List<IWizardStep> getSteps() {
-        return List.of();
+        return List.of(
+                new SelectTripBudgetStep(),
+                new DisplayBudgetStep());
     }
 
 }
