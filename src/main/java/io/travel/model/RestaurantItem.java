@@ -69,4 +69,14 @@ public class RestaurantItem extends ItineraryItem {
     public int getEstimatedCost() {
         return numberOfGuests * estimatedCostPerGuest;
     }
+
+    @Override
+    public String toString() {
+        return super.toString() + "\n" +
+                "Name: " + name + "\n" +
+                "Cuisine: " + cuisine + "\n" +
+                "Date time: " + dateTime +  "\n" +
+                "Number of guests: " + numberOfGuests + "\n" +
+                "Estimated cost per guest: " + estimatedCostPerGuest;
+    }
 }
