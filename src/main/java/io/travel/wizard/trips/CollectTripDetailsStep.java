@@ -25,7 +25,11 @@ public class CollectTripDetailsStep implements IWizardStep {
         System.out.println("Enter the budget:");
         int budget = InputHandler.getIntegerInput();
 
-        Trip trip = new Trip(SessionContext.getCurrentUser().getId(), name, country, startDate, endDate, budget, TripStatus.PLANNED);
+        TripStatus tripStatus = TripStatus.PLANNED;
+        if(startDate.isBefore(LocalDate.now()) || (startDate.isEqual(LocalDate.now()))) {
+            tripStatus = TripStatus.ACTIVE;
+        }
+        Trip trip = new Trip(SessionContext.getCurrentUser().getId(), name, country, startDate, endDate, budget, tripStatus);
         context.setSelectedTrip(trip);
 
         return WizardResult.CONTINUE;

@@ -23,7 +23,7 @@ public class EnterJournalEntryDetailsStep implements IWizardStep {
         Mood mood = Mood.valueOf(InputHandler.getStringInput());
         System.out.println("Enter up to 3 highlights separated by a comma (e.g. Good day, upbeat):");
         List<String> highlights = List.of(InputHandler.getStringInput().split(","));
-        System.out.println("Enter a  rating from 1-5:");
+        System.out.println("Enter a rating from 1-5:");
         int rating = InputHandler.getIntegerInput();
 
         JournalEntry journalEntry = new JournalEntry(title, body, dateTime, mood, highlights, rating);

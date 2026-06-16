@@ -9,10 +9,7 @@ import java.time.LocalDateTime;
 
 public class ItineraryItemFactory {
 
-    public static ItineraryItem create(ItemType itemType) {
-        System.out.println("Enter the day number:");
-        int dayNumber = InputHandler.getIntegerInput();
-
+    public static ItineraryItem create(ItemType itemType, int dayNumber) {
         return switch (itemType) {
             case FLIGHT -> createFlightItem(dayNumber);
             case HOTEL -> createHotelItem(dayNumber);
@@ -48,7 +45,7 @@ public class ItineraryItemFactory {
         String name = InputHandler.getStringInput();
         System.out.println("Enter the address of the hotel:");
         String address = InputHandler.getStringInput();
-        System.out.println("Enter the check-in date and time  (yyyy-MM-ddTHH:mm:ss):");
+        System.out.println("Enter the check-in date and time (yyyy-MM-ddTHH:mm:ss):");
         LocalDateTime checkIn = LocalDateTime.parse(InputHandler.getStringInput());
         System.out.println("Enter the checkout date and time (yyyy-MM-ddTHH:mm:ss):");
         LocalDateTime checkOut = LocalDateTime.parse(InputHandler.getStringInput());
@@ -65,7 +62,7 @@ public class ItineraryItemFactory {
         String name = InputHandler.getStringInput();
         System.out.println("Enter the name of the venue:");
         String venue = InputHandler.getStringInput();
-        System.out.println("Enter the date and time  (yyyy-MM-ddTHH:mm:ss):");
+        System.out.println("Enter the date and time (yyyy-MM-ddTHH:mm:ss):");
         LocalDateTime dateTime = LocalDateTime.parse(InputHandler.getStringInput());
         System.out .println("Enter the duration of the activity:");
         int duration = InputHandler.getIntegerInput();
@@ -84,7 +81,7 @@ public class ItineraryItemFactory {
         String name = InputHandler.getStringInput();
         System.out.println("Enter the name of the cuisine:");
         String cuisine = InputHandler.getStringInput();
-        System.out.println("Enter the date and time  (yyyy-MM-ddTHH:mm:ss):");
+        System.out.println("Enter the date and time (yyyy-MM-ddTHH:mm:ss):");
         LocalDateTime dateTime = LocalDateTime.parse(InputHandler.getStringInput());
         System.out.println("Enter the number of guests:");
         int numberOfGuests = InputHandler.getIntegerInput();
@@ -101,7 +98,7 @@ public class ItineraryItemFactory {
         String fromLocation = InputHandler.getStringInput();
         System.out.println("Enter the to the location:");
         String toLocation = InputHandler.getStringInput();
-        System.out.println("Enter the scheduled  date and time  (yyyy-MM-ddTHH:mm:ss):");
+        System.out.println("Enter the scheduled  date and time (yyyy-MM-ddTHH:mm:ss):");
         LocalDateTime dateTime = LocalDateTime.parse(InputHandler.getStringInput());
         System.out.println("Enter the estimated cost:");
         int estimatedCost = InputHandler.getIntegerInput();

@@ -22,17 +22,17 @@ public class DisplayBudgetStep  implements IWizardStep {
         Trip trip = context.getSelectedTrip();
         int estimatedCostTotal = trip.getItineraries().stream().mapToInt(ItineraryItem::getEstimatedCost).sum();
         int actualCostTotal = trip.getItineraries().stream().mapToInt(ItineraryItem::getActualCost).sum();
-        int remaining = estimatedCostTotal - actualCostTotal;
+        int remaining = trip.getTotalBudget() - estimatedCostTotal;
         Map<ItemType, Integer> categoryBreakdown = new HashMap<>();
         for (ItemType itemType : ItemType.values()) {
             int categoryTotal = trip.getItineraries().stream().filter(itineraryItem -> itemType.equals(itineraryItem.getItemType())).mapToInt(ItineraryItem::getEstimatedCost).sum();
             categoryBreakdown.put(itemType, categoryTotal);
         }
 
-        BudgetSummary budgetSummary = new BudgetSummary(estimatedCostTotal, actualCostTotal, remaining, categoryBreakdown);
+        BudgetSummary budgetSummary = new BudgetSummary(trip.getTotalBudget(), actualCostTotal, remaining, categoryBreakdown);
 
         Table table = Clique.table(TableType.BOX_DRAW)
-                .headers("ESTIMATED TOTAL BUDGET", "ACTUAL COST", "REMAINING BUDGET")
+                .headers("ESTIMATED TOTAL BUDGET", "ACTUAL TOTAL COSTS", "REMAINING ESTIMATED BUDGET")
                         .row("$" + budgetSummary.estimatedTotal(), "$" + budgetSummary.actualCost(), "$" + remaining);
         table.render();
 

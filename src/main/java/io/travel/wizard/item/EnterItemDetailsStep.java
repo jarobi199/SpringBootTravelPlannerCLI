@@ -4,7 +4,6 @@ import io.travel.enums.ItemType;
 import io.travel.enums.WizardResult;
 import io.travel.factory.ItineraryItemFactory;
 import io.travel.model.ItineraryItem;
-import io.travel.model.Trip;
 import io.travel.util.InputHandler;
 import io.travel.wizard.IWizardStep;
 import io.travel.wizard.WizardContext;
@@ -14,10 +13,9 @@ public class EnterItemDetailsStep implements IWizardStep {
     @Override
     public WizardResult execute(WizardContext context) {
         WizardResult result = WizardResult.CONTINUE;
-        Trip trip = context.getSelectedTrip();
         System.out.println("Select the item type (FLIGHT, HOTEL, ACTIVITY, RESTAURANT, TRANSPORT)");
         ItemType itemType = ItemType.valueOf(InputHandler.getStringInput());
-        ItineraryItem itineraryItem = ItineraryItemFactory.create(itemType);
+        ItineraryItem itineraryItem = ItineraryItemFactory.create(itemType, context.getSelectedDayNumber());
         context.setPendingItem(itineraryItem);
 
         return result;

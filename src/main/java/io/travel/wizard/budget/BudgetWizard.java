@@ -11,7 +11,9 @@ public class BudgetWizard implements IWizard {
     public List<IWizardStep> getSteps() {
         return List.of(
                 new SelectTripBudgetStep(),
-                new DisplayBudgetStep());
+                new DisplayBudgetStep(),
+                new UpdateActualCostsStep(),
+                new RefreshBudgetStep());
     }
 
 }
