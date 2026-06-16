@@ -7,17 +7,14 @@ import io.travel.enums.WizardResult;
 import io.travel.service.TripService;
 import io.travel.wizard.IWizardStep;
 import io.travel.wizard.WizardContext;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
 public class RefreshBudgetStep implements IWizardStep {
 
-    @Autowired
-    private AlertManager alertManager;
-
     @Override
     public WizardResult execute(WizardContext context) {
+        AlertManager alertManager = SpringContext.getBean(AlertManager.class);
         DisplayBudgetStep displayBudgetStep = new DisplayBudgetStep();
         displayBudgetStep.execute(context);
 
