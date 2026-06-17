@@ -1,7 +1,11 @@
 package io.travel.wizard.budget;
 
+import io.travel.alert.AlertContext;
+import io.travel.alert.AlertManager;
+import io.travel.bridge.SpringContext;
 import io.travel.enums.WizardResult;
 import io.travel.model.*;
+import io.travel.service.TripService;
 import io.travel.util.InputHandler;
 import io.travel.wizard.IWizardStep;
 import io.travel.wizard.WizardContext;
@@ -9,6 +13,9 @@ import io.travel.wizard.WizardContext;
 import java.util.List;
 
 public class UpdateActualCostsStep implements IWizardStep {
+
+    private AlertManager alertManager = SpringContext.getBean(AlertManager.class);
+
     @Override
     public WizardResult execute(WizardContext context) {
 
@@ -34,6 +41,10 @@ public class UpdateActualCostsStep implements IWizardStep {
                 System.out.println("Please enter the actual cost:");
                 int actualCost = InputHandler.getIntegerInput();
                 item.setActualCost(actualCost);
+
+                //Alerts
+                List<String> alerts = alertManager.evaluate(new AlertContext(context.getSelectedTrip(), context.getBudgetSummary()));
+                alerts.forEach(System.out::println);
 
                 System.out.println("Continue? Y/N:");
                 keepGoing = InputHandler.getStringInput();

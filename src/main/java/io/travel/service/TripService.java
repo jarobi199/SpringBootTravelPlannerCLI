@@ -1,5 +1,6 @@
 package io.travel.service;
 
+import io.travel.alert.AlertManager;
 import io.travel.enums.TripStatus;
 import io.travel.exception.EntityNotFoundException;
 import io.travel.model.Trip;
