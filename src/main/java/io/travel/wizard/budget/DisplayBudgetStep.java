@@ -6,13 +6,14 @@ import io.github.kusoroadeolu.clique.configuration.TableType;
 import io.travel.enums.ItemType;
 import io.travel.enums.WizardResult;
 import io.travel.model.BudgetSummary;
+import io.travel.model.CategoryBreakdown;
 import io.travel.model.ItineraryItem;
 import io.travel.model.Trip;
 import io.travel.wizard.IWizardStep;
 import io.travel.wizard.WizardContext;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DisplayBudgetStep  implements IWizardStep {
 
@@ -23,13 +24,14 @@ public class DisplayBudgetStep  implements IWizardStep {
         int estimatedCostTotal = trip.getItineraries().stream().mapToInt(ItineraryItem::getEstimatedCost).sum();
         int actualCostTotal = trip.getItineraries().stream().mapToInt(ItineraryItem::getActualCost).sum();
         int remaining = trip.getTotalBudget() - estimatedCostTotal;
-        Map<ItemType, Integer> categoryBreakdown = new HashMap<>();
+        List<CategoryBreakdown> categoryBreakdowns = new ArrayList<>();
         for (ItemType itemType : ItemType.values()) {
-            int categoryTotal = trip.getItineraries().stream().filter(itineraryItem -> itemType.equals(itineraryItem.getItemType())).mapToInt(ItineraryItem::getEstimatedCost).sum();
-            categoryBreakdown.put(itemType, categoryTotal);
+            int estimatedCostCategoryTotal = trip.getItineraries().stream().filter(itineraryItem -> itemType.equals(itineraryItem.getItemType())).mapToInt(ItineraryItem::getEstimatedCost).sum();
+            int actualCostCategoryTotal = trip.getItineraries().stream().filter(itineraryItem -> itemType.equals(itineraryItem.getItemType())).mapToInt(ItineraryItem::getActualCost).sum();
+            categoryBreakdowns.add(new CategoryBreakdown(itemType, estimatedCostCategoryTotal, actualCostCategoryTotal));
         }
 
-        BudgetSummary budgetSummary = new BudgetSummary(trip.getTotalBudget(), actualCostTotal, remaining, categoryBreakdown);
+        BudgetSummary budgetSummary = new BudgetSummary(trip.getTotalBudget(), actualCostTotal, remaining, categoryBreakdowns);
 
         Table table = Clique.table(TableType.BOX_DRAW)
                 .headers("ESTIMATED TOTAL BUDGET", "ACTUAL TOTAL COSTS", "REMAINING ESTIMATED BUDGET")
@@ -38,9 +40,9 @@ public class DisplayBudgetStep  implements IWizardStep {
 
         System.out.println();
         System.out.println("CATEGORY BREAKDOWN");
-        Table categoryBreakdownTable = Clique.table(TableType.BOX_DRAW).headers("ITEM TYPE", "ESTIMATED COST");
-        for(Map.Entry<ItemType, Integer> entry : categoryBreakdown.entrySet()) {
-            categoryBreakdownTable.row(entry.getKey().name(), "$" + entry.getValue());
+        Table categoryBreakdownTable = Clique.table(TableType.BOX_DRAW).headers("ITEM TYPE", "ESTIMATED COST", "ACTUAL COST");
+        for(CategoryBreakdown categoryBreakdown: categoryBreakdowns) {
+            categoryBreakdownTable.row(categoryBreakdown.itemType().name(), "$" + categoryBreakdown.estimatedCost(), "$" + categoryBreakdown.actualCost());
         }
         categoryBreakdownTable.render();
 

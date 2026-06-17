@@ -1,9 +1,9 @@
 package io.travel.alert;
 
-import io.travel.enums.ItemType;
+import io.travel.model.CategoryBreakdown;
 import org.springframework.stereotype.Component;
 
-import java.util.Map;
+import java.util.Comparator;
 import java.util.Optional;
 
 @Component
@@ -17,13 +17,12 @@ public class BudgetOverrunStrategy implements AlertStrategy {
     public String evaluate(AlertContext context) {
         StringBuilder stringBuilder = new StringBuilder();
         if(context.budgetSummary().remaining() < 0) {
-            Optional<Map.Entry<ItemType, Integer>> largestContributingCategory = context.budgetSummary()
-                    .categoryBreakdown()
-                    .entrySet().stream().max(Map.Entry.comparingByValue());
+            Optional<CategoryBreakdown> largestContributingCategory = context.budgetSummary()
+                    .categoryBreakdowns().stream().max(Comparator.comparing(CategoryBreakdown::estimatedCost));
             stringBuilder.append("ALERT! Your budget is over $ ").append(Math.abs(context.budgetSummary().remaining())).append("!")
                     .append("\n").append("The largest contributing category is ")
-                    .append(largestContributingCategory.get().getKey().name()).append(" - $")
-                    .append(largestContributingCategory.get().getValue());
+                    .append(largestContributingCategory.get().itemType().name()).append(" - $")
+                    .append(largestContributingCategory.get().estimatedCost());
         }
 
         return  stringBuilder.toString();
