@@ -13,6 +13,7 @@ public class WizardContext {
     private ItineraryItem pendingItem;
     private JournalEntry pendingJournalEntry;
     private BudgetSummary budgetSummary;
+    private int selectedAction;
 
     public Trip getSelectedTrip() {
         return selectedTrip;
@@ -52,5 +53,13 @@ public class WizardContext {
 
     public void setBudgetSummary(BudgetSummary budgetSummary) {
         this.budgetSummary = budgetSummary;
+    }
+
+    public int getSelectedAction() {
+        return selectedAction;
+    }
+
+    public void setSelectedAction(int selectedAction) {
+        this.selectedAction = selectedAction;
     }
 }
