@@ -8,7 +8,6 @@ public class ActivityItem extends ItineraryItem {
 
     private String name;
     private String venue;
-    private LocalDateTime dateTime;
     private int hours;
     private String notes;
     private int estimatedCost;
@@ -17,12 +16,11 @@ public class ActivityItem extends ItineraryItem {
         //No argument constructor
     }
 
-    public ActivityItem(int dayNumber, ItemType itemType, int estimatedCost, String name, String venue, LocalDateTime date, int hours, String notes) {
-        super(dayNumber, itemType);
+    public ActivityItem(LocalDateTime dateTime, ItemType itemType, int estimatedCost, String name, String venue, int hours, String notes) {
+        super(dateTime, itemType);
         this.estimatedCost = estimatedCost;
         this.name = name;
         this.venue = venue;
-        this.dateTime = date;
         this.hours = hours;
         this.notes = notes;
     }
@@ -41,14 +39,6 @@ public class ActivityItem extends ItineraryItem {
 
     public void setVenue(String venue) {
         this.venue = venue;
-    }
-
-    public LocalDateTime getDateTime() {
-        return dateTime;
-    }
-
-    public void setDateTime(LocalDateTime dateTime) {
-        this.dateTime = dateTime;
     }
 
     public int getHours() {
@@ -74,11 +64,10 @@ public class ActivityItem extends ItineraryItem {
 
     @Override
     public String toString() {
-        return super.toString() + "\n" +
+        return super.toString() +
                 "Name: " + name + "\n" +
                 "Venue: " + venue + "\n" +
-                "Date and time: " + dateTime + "\n" +
                 "Hours: " + hours + "\n" +
-                "Notes: " + notes + "\n" ;
+                "Notes: " + notes;
     }
 }

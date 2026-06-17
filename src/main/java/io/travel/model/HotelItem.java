@@ -9,7 +9,6 @@ import java.time.temporal.ChronoUnit;
 public class HotelItem extends ItineraryItem {
     private String name;
     private String address;
-    private LocalDateTime checkInDateTime;
     private LocalDateTime checkOutDateTime;
     private int price;
     private String confirmationCode;
@@ -18,11 +17,10 @@ public class HotelItem extends ItineraryItem {
         //No argument constructor
     }
 
-    public HotelItem(int dayNumber, ItemType itemType, String name, String address, LocalDateTime checkInDateTime, LocalDateTime checkOutDateTime, int price, String confirmationCode) {
-        super(dayNumber, itemType);
+    public HotelItem( LocalDateTime checkInDateTime, ItemType itemType, String name, String address, LocalDateTime checkOutDateTime, int price, String confirmationCode) {
+        super(checkInDateTime, itemType);
         this.name = name;
         this.address = address;
-        this.checkInDateTime = checkInDateTime;
         this.checkOutDateTime = checkOutDateTime;
         this.price = price;
         this.confirmationCode = confirmationCode;
@@ -42,14 +40,6 @@ public class HotelItem extends ItineraryItem {
 
     public void setAddress(String address) {
         this.address = address;
-    }
-
-    public LocalDateTime checkInDateTime() {
-        return checkInDateTime;
-    }
-
-    public void setCheckInDate(LocalDateTime checkInDateTime) {
-        this.checkInDateTime = checkInDateTime;
     }
 
     public LocalDateTime getCheckOutDateTime() {
@@ -78,17 +68,17 @@ public class HotelItem extends ItineraryItem {
 
     @Override
     public int getEstimatedCost() {
-        return Math.toIntExact(ChronoUnit.DAYS.between(checkInDateTime, checkOutDateTime) * price);
+        return Math.toIntExact(ChronoUnit.DAYS.between(dateTime, checkOutDateTime) * price);
     }
 
     @Override
     public String toString() {
-        return super.toString() + "\n" +
+        return super.toString() +
                 "Name: " + name + "\n" +
                 "Address: " + address + "\n" +
-                "Check-in date and time:" + checkInDateTime + "\n" +
+                "Check-in date and time: " + dateTime + "\n" +
                 "Check-out date and time: " + checkOutDateTime + "\n" +
                 "Price: " + price + "\n" +
-                "Confirmation code: " + confirmationCode + "\n";
+                "Confirmation code: " + confirmationCode;
     }
 }

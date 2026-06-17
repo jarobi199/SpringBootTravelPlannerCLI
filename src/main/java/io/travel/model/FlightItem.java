@@ -10,8 +10,7 @@ public class FlightItem extends ItineraryItem {
     private String flightNumber;
     private String departureAirport;
     private String arrivalAirport;
-    private LocalDateTime departureTime;
-    private LocalDateTime arrivalTime;
+    private LocalDateTime arrivalDateTime;
     private String confirmationCode;
     private int estimatedCost;
 
@@ -19,16 +18,15 @@ public class FlightItem extends ItineraryItem {
         //No argument constructor
     }
 
-    public FlightItem(int dayNumber, ItemType itemType, int estimatedCost, String airline, String flightNumber, String departureAirport, String arrivalAirport,
-                      LocalDateTime departureTime, LocalDateTime arrivalTime, String confirmationCode) {
-        super(dayNumber, itemType);
+    public FlightItem(LocalDateTime departureDateTime, ItemType itemType, int estimatedCost, String airline, String flightNumber, String departureAirport, String arrivalAirport,
+                      LocalDateTime arrivalDateTime, String confirmationCode) {
+        super(departureDateTime, itemType);
         this.estimatedCost = estimatedCost;
         this.airline = airline;
         this.flightNumber = flightNumber;
         this.departureAirport = departureAirport;
         this.arrivalAirport = arrivalAirport;
-        this.departureTime = departureTime;
-        this.arrivalTime = arrivalTime;
+        this.arrivalDateTime = arrivalDateTime;
         this.confirmationCode = confirmationCode;
     }
 
@@ -64,20 +62,12 @@ public class FlightItem extends ItineraryItem {
         this.arrivalAirport = arrivalAirport;
     }
 
-    public LocalDateTime getDepartureTime() {
-        return departureTime;
+    public LocalDateTime getArrivalDateTime() {
+        return arrivalDateTime;
     }
 
-    public void setDepartureTime(LocalDateTime departureTime) {
-        this.departureTime = departureTime;
-    }
-
-    public LocalDateTime getArrivalTime() {
-        return arrivalTime;
-    }
-
-    public void setArrivalTime(LocalDateTime arrivalTime) {
-        this.arrivalTime = arrivalTime;
+    public void setArrivalDateTime(LocalDateTime arrivalDateTime) {
+        this.arrivalDateTime = arrivalDateTime;
     }
 
     public String getConfirmationCode() {
@@ -100,9 +90,9 @@ public class FlightItem extends ItineraryItem {
                 "Flight number: '" + flightNumber + "\n" +
                 "Departure airport: " + departureAirport + "\n" +
                 "Arrival airport: " + arrivalAirport + "\n" +
-                "Departure time: " + departureTime + "\n" +
-                "Arrival time: " + arrivalTime + "\n" +
-                "Confirmation code: " + confirmationCode+ "\n";
+                "Departure date and time: " + dateTime + "\n" +
+                "Arrival date and  time: " + arrivalDateTime + "\n" +
+                "Confirmation code: " + confirmationCode;
     }
 
 }

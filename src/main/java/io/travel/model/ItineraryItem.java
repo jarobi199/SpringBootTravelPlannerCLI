@@ -3,10 +3,12 @@ package io.travel.model;
 import io.travel.enums.ItemType;
 import org.springframework.data.annotation.Id;
 
+import java.time.LocalDateTime;
+
 public abstract class ItineraryItem {
     @Id
     protected String id;
-    protected int dayNumber;
+    protected LocalDateTime dateTime;
     protected ItemType itemType;
     protected int actualCost;
 
@@ -14,8 +16,8 @@ public abstract class ItineraryItem {
         //No argument constructor
     }
 
-    public ItineraryItem(int dayNumber, ItemType itemType) {
-        this.dayNumber = dayNumber;
+    public ItineraryItem(LocalDateTime dateTime, ItemType itemType) {
+        this.dateTime = dateTime;
         this.itemType = itemType;
     }
 
@@ -27,12 +29,12 @@ public abstract class ItineraryItem {
         this.id = id;
     }
 
-    public int getDayNumber() {
-        return dayNumber;
+    public LocalDateTime getDateTime() {
+        return dateTime;
     }
 
-    public void setDayNumber(int dayNumber) {
-        this.dayNumber = dayNumber;
+    public void setDateTime(LocalDateTime dateTime) {
+        this.dateTime = dateTime;
     }
 
     public int getActualCost() {
@@ -55,8 +57,8 @@ public abstract class ItineraryItem {
 
     @Override
     public String toString() {
-        return this.getClass().getSimpleName().toUpperCase() + " DETAILS:" + "\n" +
-                "Day number: " + dayNumber + "\n" +
+        return this.getClass().getSimpleName().toUpperCase().replace("ITEM", " ITEM") + " DETAILS:" + "\n" +
+                "Date and time: " + dateTime + "\n" +
                 "Item type: " + itemType.name() + "\n" +
                 "Actual cost: " + actualCost + "\n";
     }

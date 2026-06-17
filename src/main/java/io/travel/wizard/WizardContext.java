@@ -5,9 +5,11 @@ import io.travel.model.ItineraryItem;
 import io.travel.model.JournalEntry;
 import io.travel.model.Trip;
 
+import java.time.LocalDateTime;
+
 public class WizardContext {
     private Trip selectedTrip;
-    private int selectedDayNumber;
+    private LocalDateTime dateTime;
     private ItineraryItem pendingItem;
     private JournalEntry pendingJournalEntry;
     private BudgetSummary budgetSummary;
@@ -20,12 +22,12 @@ public class WizardContext {
         this.selectedTrip = selectedTrip;
     }
 
-    public int getSelectedDayNumber() {
-        return selectedDayNumber;
+    public LocalDateTime getDateTime() {
+        return dateTime;
     }
 
-    public void setSelectedDayNumber(int selectedDayNumber) {
-        this.selectedDayNumber = selectedDayNumber;
+    public void setDateTime(LocalDateTime dateTime) {
+        this.dateTime = dateTime;
     }
 
     public ItineraryItem getPendingItem() {

@@ -38,8 +38,7 @@ public class DisplayBudgetStep  implements IWizardStep {
 
         System.out.println();
         System.out.println("CATEGORY BREAKDOWN");
-        Table categoryBreakdownTable = Clique.table(TableType.BOX_DRAW)
-                .headers("ITEM TYPE", "ESTIMATED COST");
+        Table categoryBreakdownTable = Clique.table(TableType.BOX_DRAW).headers("ITEM TYPE", "ESTIMATED COST");
         for(Map.Entry<ItemType, Integer> entry : categoryBreakdown.entrySet()) {
             categoryBreakdownTable.row(entry.getKey().name(), "$" + entry.getValue());
         }

@@ -10,7 +10,7 @@ public class AddItemWizard implements IWizard {
     public List<IWizardStep> getSteps() {
         return List.of(
                 new SelectTripItemStep(),
-                new SelectDayStep(),
+                new SelectDateTimeStep(),
                 new EnterItemDetailsStep(),
                 new ConfirmAndSaveItemStep()
         );

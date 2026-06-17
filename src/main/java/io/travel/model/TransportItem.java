@@ -10,7 +10,6 @@ public class TransportItem extends ItineraryItem{
     private TransportType transportType;
     private String fromLocation;
     private String toLocation;
-    private LocalDateTime dateTime;
     private String provider;
     private String notes;
     private int estimatedCost;
@@ -19,13 +18,12 @@ public class TransportItem extends ItineraryItem{
         //No argument constructor
     }
 
-    public TransportItem(int dayNumber, ItemType itemType, int estimatedCost, TransportType transportType, String fromLocation, String toLocation, LocalDateTime dateTime, String provider, String notes) {
-        super(dayNumber, itemType);
+    public TransportItem(LocalDateTime dateTime, ItemType itemType, int estimatedCost, TransportType transportType, String fromLocation, String toLocation, String provider, String notes) {
+        super(dateTime, itemType);
         this.estimatedCost = estimatedCost;
         this.transportType = transportType;
         this.fromLocation = fromLocation;
         this.toLocation = toLocation;
-        this.dateTime = dateTime;
         this.provider = provider;
         this.notes = notes;
     }
@@ -54,14 +52,6 @@ public class TransportItem extends ItineraryItem{
         this.toLocation = toLocation;
     }
 
-    public LocalDateTime getDateTime() {
-        return dateTime;
-    }
-
-    public void setDateTime(LocalDateTime dateTime) {
-        this.dateTime = dateTime;
-    }
-
     public String getProvider() {
         return provider;
     }
@@ -85,12 +75,11 @@ public class TransportItem extends ItineraryItem{
 
     @Override
     public String toString() {
-        return super.toString() + "\n" +
+        return super.toString() +
                 "Transport type: " + transportType + "\n" +
                 "From location: '" + fromLocation + "\n" +
                 "To location: " + toLocation + "\n" +
-                "Date time: " + dateTime + "\n" +
                 "Provider: " + provider + "\n" +
-                "Notes: '" + notes + "\n";
+                "Notes: '" + notes;
     }
 }

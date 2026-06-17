@@ -23,7 +23,7 @@ public class SelectTripStep implements IWizardStep {
         if(!trips.isEmpty()) {
             result = WizardResult.CONTINUE;
             for (Trip trip : trips) {
-                System.out.println("[" + i + "] " + trip.getName());
+                System.out.println("[" + i + "] " + trip.getName() + " (" + trip.getStatus().name() + ")");
                 i++;
             }
             System.out.println("Please select a trip:");

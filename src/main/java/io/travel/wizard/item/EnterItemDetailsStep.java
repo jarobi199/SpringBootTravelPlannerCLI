@@ -15,7 +15,7 @@ public class EnterItemDetailsStep implements IWizardStep {
         WizardResult result = WizardResult.CONTINUE;
         System.out.println("Select the item type (FLIGHT, HOTEL, ACTIVITY, RESTAURANT, TRANSPORT)");
         ItemType itemType = ItemType.valueOf(InputHandler.getStringInput());
-        ItineraryItem itineraryItem = ItineraryItemFactory.create(itemType, context.getSelectedDayNumber());
+        ItineraryItem itineraryItem = ItineraryItemFactory.create(itemType, context.getDateTime());
         context.setPendingItem(itineraryItem);
 
         return result;
