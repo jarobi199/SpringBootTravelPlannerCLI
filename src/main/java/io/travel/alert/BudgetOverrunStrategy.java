@@ -19,7 +19,7 @@ public class BudgetOverrunStrategy implements AlertStrategy {
         if(context.budgetSummary().remaining() < 0) {
             Optional<CategoryBreakdown> largestContributingCategory = context.budgetSummary()
                     .categoryBreakdowns().stream().max(Comparator.comparing(CategoryBreakdown::estimatedCost));
-            stringBuilder.append("ALERT! Your budget is over $ ").append(Math.abs(context.budgetSummary().remaining())).append("!")
+            stringBuilder.append("ALERT! Your budget is over $").append(Math.abs(context.budgetSummary().remaining())).append("!")
                     .append("\n").append("The largest contributing category is ")
                     .append(largestContributingCategory.get().itemType().name()).append(" - $")
                     .append(largestContributingCategory.get().estimatedCost());

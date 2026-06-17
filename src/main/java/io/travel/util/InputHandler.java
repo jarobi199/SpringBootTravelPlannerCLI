@@ -12,7 +12,7 @@ public class InputHandler {
     // Set DEBUG = true to read input from the test file instead of
     // the command line. Flip back to false for normal operation.
     // ----------------------------------------------------------------
-    private static final boolean DEBUG = false;
+    private static final boolean DEBUG = true;
     private static final String DEBUG_FILE = "C:\\Users\\jarob\\Documents\\Java\\Claude\\SpringBootTravelPlannerCLI\\data\\test_input.txt";
     private static final int DEBUG_DELAY_MS = 2000;
 

@@ -1,1 +1,141 @@
-https://github.com/kusoroadeolu/Clique/blob/dev/docs/tables.md
+# =========================================================
+# Test Input Script - Spring Boot Travel Planner CLI
+# Assumes a user already exists in MongoDB (kjackson/password)
+# Set InputHandler.DEBUG = true and point DEBUG_FILE at this
+# file's location before running.
+# =========================================================
+
+# --- STEP 1: Login ---
+kjackson
+password
+
+# --- STEP 2: Main Menu -> Plan a new trip ---
+1
+
+# --- STEP 3: Trip details ---
+# Small budget on purpose, to trigger BudgetOverrunStrategy later.
+# Start date is set to TODAY so the trip is created as ACTIVE
+# (CollectTripDetailsStep sets ACTIVE when startDate <= now).
+# ACTIVE is required for the journal entry step (STEP 11), which only
+# lists ACTIVE/COMPLETED trips, and lets MarkCompleteStep's prompt fire
+# in STEP 12.
+# NOTE: replace 2026-06-17 below with whatever "today" is when you run this.
+Tokyo Adventure
+Japan
+2026-06-17
+2026-06-24
+500
+
+# --- STEP 4: Confirm trip ---
+Y
+
+# --- STEP 5: Main Menu -> Add itinerary item (FLIGHT) ---
+2
+# Select trip
+1
+# Date/time for the item
+2026-06-17T08:00:00
+FLIGHT
+Delta Air Lines
+DL123
+Atlanta
+Tokyo
+2026-06-17T22:30:00
+ABC123
+900
+Y
+
+# --- STEP 6: Add itinerary item (HOTEL) ---
+2
+1
+2026-06-17T15:00:00
+HOTEL
+Shinjuku Grand Hotel
+1-1 Shinjuku, Tokyo
+2026-06-24T11:00:00
+HTL789
+150
+Y
+
+# --- STEP 7: Add itinerary item (ACTIVITY) ---
+2
+1
+2026-06-19T10:00:00
+ACTIVITY
+Tokyo Skytree Tour
+Tokyo Skytree
+3
+60
+Bring camera, book ahead online
+Y
+
+# --- STEP 8: Add itinerary item (RESTAURANT) ---
+2
+1
+2026-06-19T19:00:00
+RESTAURANT
+Sushi Saito
+Sushi
+2
+80
+Y
+
+# --- STEP 9: Add itinerary item (TRANSPORT) ---
+2
+1
+2026-06-18T09:00:00
+TRANSPORT
+TRAIN
+Narita Airport
+Shinjuku Station
+40
+JR East
+Use the Narita Express line
+Y
+
+# --- STEP 10: Review budget ---
+3
+# Select trip
+1
+# Loop is: select item -> enter actual cost -> "Continue? Y/N" (repeat if Y)
+# Update actual cost for item 1 (Flight)
+1
+950
+Y
+# Update actual cost for item 2 (Hotel), pushing budget over the limit
+2
+1050
+N
+
+# --- STEP 11: Write journal entry ---
+4
+# Select trip
+1
+First Day in Tokyo
+Landed at Narita, took the train into Shinjuku. The city is incredible at night.
+2026-06-17T23:00:00
+AMAZING
+Neon lights,Great ramen,Friendly locals
+5
+Y
+
+# --- STEP 12: Trip summary ---
+5
+# Select trip
+1
+# Trip status is ACTIVE, so MarkCompleteStep asks "mark as completed? (Y/N)"
+Y
+
+# --- STEP 13: My Trips ---
+6
+# Select trip
+1
+# View full summary
+1
+
+# --- STEP 14: Back to main menu from My Trips ---
+6
+0
+
+# --- STEP 15: Quit application ---
+0

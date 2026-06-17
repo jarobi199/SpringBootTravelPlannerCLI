@@ -78,7 +78,7 @@ public class HotelItem extends ItineraryItem {
                 "Address: " + address + "\n" +
                 "Check-in date and time: " + dateTime + "\n" +
                 "Check-out date and time: " + checkOutDateTime + "\n" +
-                "Price: " + price + "\n" +
+                "Price: $" + price + "\n" +
                 "Confirmation code: " + confirmationCode;
     }
 }
