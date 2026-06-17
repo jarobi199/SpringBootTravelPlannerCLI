@@ -15,6 +15,7 @@ public class DisplayJournalStep implements IWizardStep {
     public WizardResult execute(WizardContext context) {
         Trip trip = context.getSelectedTrip();
 
+        System.out.println("JOURNAL ENTRIES");
         Table table =  Clique.table(TableType.BOX_DRAW).headers("TITLE", "BODY", "DATE","MOOD", "HIGHLIGHTS", "RATING");
         for(JournalEntry journalEntry : trip.getJournals()) {
             table.row(journalEntry.title(), journalEntry.body(), journalEntry.date().toString(),

@@ -23,6 +23,7 @@ public class MarkCompleteStep implements IWizardStep {
             if("Y".equalsIgnoreCase(selection)) {
                 trip.setStatus(TripStatus.COMPLETED);
                 tripService.saveTrip(trip);
+                System.out.println("Trip marked as complete!");
             }
         }
         return result;

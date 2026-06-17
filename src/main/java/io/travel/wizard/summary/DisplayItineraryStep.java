@@ -44,6 +44,7 @@ public class DisplayItineraryStep implements IWizardStep {
         }
 
         //Traverse and display results
+        System.out.println("ITINERARY ITEMS BY DATE");
         for(DayItinerary dayItinerary : dayItineraries) {
             System.out.println("------------------------------------------------------");
             System.out.println("DATE: " + dayItinerary.date());
@@ -56,6 +57,7 @@ public class DisplayItineraryStep implements IWizardStep {
             }
             System.out.println("------------------------------------------------------");
         }
+        System.out.println();
 
         return WizardResult.CONTINUE;
     }

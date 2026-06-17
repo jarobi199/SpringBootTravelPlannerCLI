@@ -33,6 +33,7 @@ public class DisplayBudgetStep  implements IWizardStep {
 
         BudgetSummary budgetSummary = new BudgetSummary(trip.getTotalBudget(), actualCostTotal, remaining, categoryBreakdowns);
 
+        System.out.println("BUDGET SUMMARY");
         Table table = Clique.table(TableType.BOX_DRAW)
                 .headers("ESTIMATED TOTAL BUDGET", "ACTUAL TOTAL COSTS", "REMAINING ESTIMATED BUDGET")
                         .row("$" + budgetSummary.estimatedTotal(), "$" + budgetSummary.actualCost(), "$" + remaining);
@@ -45,6 +46,7 @@ public class DisplayBudgetStep  implements IWizardStep {
             categoryBreakdownTable.row(categoryBreakdown.itemType().name(), "$" + categoryBreakdown.estimatedCost(), "$" + categoryBreakdown.actualCost());
         }
         categoryBreakdownTable.render();
+        System.out.println();
 
         context.setBudgetSummary(budgetSummary);
         return result;
