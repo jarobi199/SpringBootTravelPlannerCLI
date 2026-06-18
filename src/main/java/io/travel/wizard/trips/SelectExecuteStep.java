@@ -42,7 +42,7 @@ public class SelectExecuteStep implements IWizardStep {
         }
         else
         {
-            System.out.println("This trip does not have any journal entries! Are you sure you want to delete this trip?");
+            System.out.println("This has journal entries! Are you sure you want to delete this trip?");
             String selection = InputHandler.getStringInput();
             if ("Y".equalsIgnoreCase(selection)) {
                 tripService.deleteTrip(trip);

@@ -3,37 +3,76 @@
 # Assumes a user already exists in MongoDB (kjackson/password)
 # Set InputHandler.DEBUG = true and point DEBUG_FILE at this
 # file's location before running.
+#
+# IMPORTANT: every trip date below uses 2026-06-17 as "today".
+# If you run this on a different day, shift ALL dates in this
+# file by the same number of days, or the ACTIVE/PLANNED status
+# logic (and therefore every list index referenced below) will
+# not match what's described in the comments.
+#
+# Each menu selection re-queries the DB filtered by status, so
+# list positions shift as trips change status throughout the
+# script. See the inline comments at each selection point for
+# the exact index math at that moment.
+#
+# ---------------------------------------------------------
+# TEST INDEX (if something breaks, find the TEST number in
+# the console output/stack trace area and jump to it below)
+# ---------------------------------------------------------
+#  TEST 1  - Login
+#  TEST 2  - Plan Trip 1: Tokyo Adventure
+#  TEST 3  - Add item (FLIGHT) to Tokyo Adventure
+#  TEST 4  - Add item (HOTEL) to Tokyo Adventure
+#  TEST 5  - Add item (ACTIVITY) to Tokyo Adventure
+#  TEST 6  - Add item (RESTAURANT) to Tokyo Adventure
+#  TEST 7  - Add item (TRANSPORT) to Tokyo Adventure
+#  TEST 8  - Review budget / update actual costs (triggers BudgetOverrunStrategy)
+#  TEST 9  - Journal entry #1 for Tokyo Adventure
+#  TEST 10 - Journal entry #2 for Tokyo Adventure
+#  TEST 11 - Plan Trip 2: Paris Getaway
+#  TEST 12 - Add item (FLIGHT) to Paris Getaway
+#  TEST 13 - Add item (HOTEL) to Paris Getaway
+#  TEST 14 - Plan Trip 3: Quick Weekend
+#  TEST 15 - Plan Trip 4: Backup Plan
+#  TEST 16 - Journal entry for Backup Plan
+#  TEST 17 - My Trips: Edit Paris Getaway's name/dates
+#  TEST 18 - My Trips: Cancel Paris Adventure
+#  TEST 19 - My Trips: Delete Quick Weekend (no journals, no confirm prompt)
+#  TEST 20 - My Trips: Delete Backup Plan (has journal, confirm prompt)
+#  TEST 21 - Trip Summary: mark Tokyo Adventure COMPLETED
+#  TEST 22 - Final check: My Trips listing, back out
+#  TEST 23 - Quit application
+#
+# Trips created, in order, and their resulting status at creation:
+#   1. Tokyo Adventure   - startDate = today      -> ACTIVE
+#   2. Paris Getaway      - startDate = +30 days   -> PLANNED
+#   3. Quick Weekend      - startDate = today      -> ACTIVE
+#   4. Backup Plan        - startDate = today      -> ACTIVE
 # =========================================================
 
-# --- STEP 1: Login ---
+# --- TEST 1: Login ---
 kjackson
 password
 
-# --- STEP 2: Main Menu -> Plan a new trip ---
-1
 
-# --- STEP 3: Trip details ---
-# Small budget on purpose, to trigger BudgetOverrunStrategy later.
-# Start date is set to TODAY so the trip is created as ACTIVE
-# (CollectTripDetailsStep sets ACTIVE when startDate <= now).
-# ACTIVE is required for the journal entry step (STEP 11), which only
-# lists ACTIVE/COMPLETED trips, and lets MarkCompleteStep's prompt fire
-# in STEP 12.
-# NOTE: replace 2026-06-17 below with whatever "today" is when you run this.
+# =========================================================
+# TRIP 1: Tokyo Adventure (full lifecycle: items, budget
+# overrun, two journal entries, marked COMPLETED)
+# =========================================================
+
+# --- TEST 2: Plan Trip 1 (Tokyo Adventure) ---
+1
 Tokyo Adventure
 Japan
 2026-06-17
 2026-06-24
 500
-
-# --- STEP 4: Confirm trip ---
 Y
 
-# --- STEP 5: Main Menu -> Add itinerary item (FLIGHT) ---
+# --- TEST 3: Add item (FLIGHT) ---
+# SelectTripItemStep lists PLANNED+ACTIVE trips. Only Tokyo exists so far -> [1]
 2
-# Select trip
 1
-# Date/time for the item
 2026-06-17T08:00:00
 FLIGHT
 Delta Air Lines
@@ -45,7 +84,7 @@ ABC123
 900
 Y
 
-# --- STEP 6: Add itinerary item (HOTEL) ---
+# --- TEST 4: Add item (HOTEL) ---
 2
 1
 2026-06-17T15:00:00
@@ -57,7 +96,7 @@ HTL789
 150
 Y
 
-# --- STEP 7: Add itinerary item (ACTIVITY) ---
+# --- TEST 5: Add item (ACTIVITY) ---
 2
 1
 2026-06-19T10:00:00
@@ -69,7 +108,7 @@ Tokyo Skytree
 Bring camera, book ahead online
 Y
 
-# --- STEP 8: Add itinerary item (RESTAURANT) ---
+# --- TEST 6: Add item (RESTAURANT) ---
 2
 1
 2026-06-19T19:00:00
@@ -80,7 +119,7 @@ Sushi
 80
 Y
 
-# --- STEP 9: Add itinerary item (TRANSPORT) ---
+# --- TEST 7: Add item (TRANSPORT) ---
 2
 1
 2026-06-18T09:00:00
@@ -93,23 +132,21 @@ JR East
 Use the Narita Express line
 Y
 
-# --- STEP 10: Review budget ---
+# --- TEST 8: Review budget / update actual costs ---
+# SelectTripBudgetStep lists PLANNED+ACTIVE+COMPLETED. Only Tokyo exists -> [1]
+# Loop: select item -> enter actual cost -> "Continue? Y/N" (repeat if Y)
 3
-# Select trip
 1
-# Loop is: select item -> enter actual cost -> "Continue? Y/N" (repeat if Y)
-# Update actual cost for item 1 (Flight)
 1
 950
 Y
-# Update actual cost for item 2 (Hotel), pushing budget over the limit
 2
 1050
 N
 
-# --- STEP 11: Write journal entry ---
+# --- TEST 9: Journal entry #1 (Tokyo Adventure) ---
+# SelectTripJournalStep lists ACTIVE+COMPLETED. Only Tokyo (ACTIVE) -> [1]
 4
-# Select trip
 1
 First Day in Tokyo
 Landed at Narita, took the train into Shinjuku. The city is incredible at night.
@@ -119,23 +156,174 @@ Neon lights,Great ramen,Friendly locals
 5
 Y
 
-# --- STEP 12: Trip summary ---
-5
-# Select trip
+# --- TEST 10: Journal entry #2 (Tokyo Adventure) ---
+4
 1
-# Trip status is ACTIVE, so MarkCompleteStep asks "mark as completed? (Y/N)"
+Skytree and Sushi
+Spent the afternoon at the Skytree then had an incredible omakase dinner.
+2026-06-19T22:00:00
+GOOD
+Great views,Amazing food
+4
 Y
 
-# --- STEP 13: My Trips ---
-6
-# Select trip
-1
-# View full summary
-1
 
-# --- STEP 14: Back to main menu from My Trips ---
+# =========================================================
+# TRIP 2: Paris Getaway (PLANNED, will be edited then
+# cancelled via My Trips)
+# =========================================================
+
+# --- TEST 11: Plan Trip 2 (Paris Getaway) ---
+1
+Paris Getaway
+France
+2026-07-17
+2026-07-24
+800
+Y
+
+# --- TEST 12: Add item (FLIGHT) to Paris Getaway ---
+# SelectTripItemStep lists PLANNED+ACTIVE. Tokyo(ACTIVE) -> [1], Paris(PLANNED) -> [2]
+2
+2
+2026-07-17T09:00:00
+FLIGHT
+Air France
+AF456
+Atlanta
+Paris
+2026-07-17T23:00:00
+XYZ789
+850
+Y
+
+# --- TEST 13: Add item (HOTEL) to Paris Getaway ---
+2
+2
+2026-07-17T16:00:00
+HOTEL
+Le Marais Boutique Hotel
+12 Rue des Rosiers, Paris
+2026-07-24T11:00:00
+HTLFR1
+180
+Y
+
+
+# =========================================================
+# TRIP 3: Quick Weekend (ACTIVE, no items, no journals,
+# deleted immediately via My Trips with no confirmation
+# prompt since journals list is empty)
+# =========================================================
+
+# --- TEST 14: Plan Trip 3 (Quick Weekend) ---
+1
+Quick Weekend
+United States
+2026-06-17
+2026-06-19
+100
+Y
+
+
+# =========================================================
+# TRIP 4: Backup Plan (ACTIVE, gets one journal entry so
+# the delete confirmation prompt fires, then confirmed Y)
+# =========================================================
+
+# --- TEST 15: Plan Trip 4 (Backup Plan) ---
+1
+Backup Plan
+Canada
+2026-06-17
+2026-06-20
+200
+Y
+
+# --- TEST 16: Journal entry for Backup Plan ---
+# SelectTripJournalStep lists ACTIVE+COMPLETED.
+# At this point: Tokyo(ACTIVE)->[1], Quick Weekend(ACTIVE)->[2], Backup Plan(ACTIVE)->[3]
+4
+3
+Scouting the Backup Spot
+Just in case Paris falls through, checked out a few backup cabins nearby.
+2026-06-17T18:00:00
+NEUTRAL
+Nice scenery
+3
+Y
+
+
+# =========================================================
+# MY TRIPS: exercise Edit, Cancel, and Delete actions
+# SelectMyTripStep lists ALL trips regardless of status, in
+# creation order:
+#   [1] Tokyo Adventure (ACTIVE)
+#   [2] Paris Getaway (PLANNED)
+#   [3] Quick Weekend (ACTIVE)
+#   [4] Backup Plan (ACTIVE)
+# Each My Trips run gets a fresh WizardContext, so the trip
+# must be reselected by its current index every time.
+# =========================================================
+
+# --- TEST 17: My Trips - Edit Paris Getaway's name and dates ---
+6
+2
+2
+Paris Adventure
+2026-07-18
+2026-07-25
+
+# --- TEST 18: My Trips - Cancel Paris Adventure (valid - it's PLANNED) ---
+6
+2
+3
+
+# --- TEST 19: My Trips - Delete Quick Weekend ---
+# Quick Weekend has no journal entries, so deleteTrip() runs
+# immediately with no Y/N confirmation prompt.
+6
+3
+4
+
+# --- TEST 20: My Trips - Delete Backup Plan ---
+# Backup Plan HAS a journal entry, so a confirmation prompt
+# fires before deleting. Confirm with Y.
+# After Quick Weekend's deletion above, the list is now:
+#   [1] Tokyo Adventure (ACTIVE)
+#   [2] Paris Adventure (CANCELLED)
+#   [3] Backup Plan (ACTIVE)
+6
+3
+4
+Y
+
+
+# =========================================================
+# TRIP SUMMARY: mark Tokyo Adventure as COMPLETED
+# SelectTripStep lists ALL trips. After the deletions above:
+#   [1] Tokyo Adventure (ACTIVE)
+#   [2] Paris Adventure (CANCELLED)
+# =========================================================
+
+# --- TEST 21: Trip Summary - mark Tokyo Adventure COMPLETED ---
+5
+1
+Y
+
+
+# =========================================================
+# FINAL CHECK: list remaining trips via My Trips, then back out
+# Expected list at this point:
+#   [1] Tokyo Adventure (COMPLETED)
+#   [2] Paris Adventure (CANCELLED)
+# Select 0 at SelectMyTripStep to abort straight back to the
+# main menu without choosing an action.
+# =========================================================
+
+# --- TEST 22: Final check - My Trips listing, back out ---
 6
 0
 
-# --- STEP 15: Quit application ---
+# --- TEST 23: Quit application ---
 0
