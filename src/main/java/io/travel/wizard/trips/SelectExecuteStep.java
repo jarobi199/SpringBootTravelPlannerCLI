@@ -36,7 +36,7 @@ public class SelectExecuteStep implements IWizardStep {
 
     public WizardResult deleteTrip(Trip trip) {
         WizardResult result = WizardResult.ABORT;
-        if(!trip.getJournals().isEmpty()) {
+        if(trip.getJournals().isEmpty()) {
             tripService.deleteTrip(trip);
             System.out.println("Trip has been deleted!");
         }
