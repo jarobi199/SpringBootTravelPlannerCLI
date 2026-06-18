@@ -1,8 +1,5 @@
 package io.travel.wizard.summary;
 
-import io.github.kusoroadeolu.clique.Clique;
-import io.github.kusoroadeolu.clique.components.Table;
-import io.github.kusoroadeolu.clique.configuration.TableType;
 import io.travel.enums.WizardResult;
 import io.travel.model.DayItinerary;
 import io.travel.model.ItineraryItem;

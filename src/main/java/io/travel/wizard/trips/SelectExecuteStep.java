@@ -20,19 +20,23 @@ public class SelectExecuteStep implements IWizardStep {
         int selection = context.getSelectedAction();
         Trip trip = context.getSelectedTrip();
 
-        WizardResult result = switch (selection) {
+        return switch (selection) {
+            case 1 -> viewTripSummary();
             case 2 -> editTripNameAndDates(trip);
             case 3 -> cancelTrip(trip);
             case 4 -> deleteTrip(trip);
             default -> throw new IllegalStateException("Unexpected value: " + selection);
         };
+    }
 
+    public WizardResult viewTripSummary() {
+        System.out.println("I would display a trip summary here but it is too complicated with this wizard/step architecture.");
         return WizardResult.CONTINUE;
     }
 
     public WizardResult deleteTrip(Trip trip) {
         WizardResult result = WizardResult.ABORT;
-        if(trip.getJournals().isEmpty()) {
+        if(!trip.getJournals().isEmpty()) {
             tripService.deleteTrip(trip);
             System.out.println("Trip has been deleted!");
         }
