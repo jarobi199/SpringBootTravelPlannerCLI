@@ -20,16 +20,18 @@ public class SelectExecuteStep implements IWizardStep {
         int selection = context.getSelectedAction();
         Trip trip = context.getSelectedTrip();
 
-        switch (selection) {
+        WizardResult result = switch (selection) {
             case 2 -> editTripNameAndDates(trip);
             case 3 -> cancelTrip(trip);
             case 4 -> deleteTrip(trip);
-        }
+            default -> throw new IllegalStateException("Unexpected value: " + selection);
+        };
 
         return WizardResult.CONTINUE;
     }
 
-    public void deleteTrip(Trip trip) {
+    public WizardResult deleteTrip(Trip trip) {
+        WizardResult result = WizardResult.ABORT;
         if(trip.getJournals().isEmpty()) {
             tripService.deleteTrip(trip);
             System.out.println("Trip has been deleted!");
@@ -43,17 +45,22 @@ public class SelectExecuteStep implements IWizardStep {
                 System.out.println("Trip has been deleted!");
             }
         }
+        return result;
     }
 
-    public void cancelTrip(Trip trip) {
+    public WizardResult cancelTrip(Trip trip) {
+        WizardResult result = WizardResult.ABORT;
         if(TripStatus.PLANNED.equals(trip.getStatus())) {
             trip.setStatus(TripStatus.CANCELLED);
             tripService.saveTrip(trip);
             System.out.println("Trip has been cancelled!");
+            result = WizardResult.CONTINUE;
         }
+
+        return result;
     }
 
-    public void editTripNameAndDates(Trip trip) {
+    public WizardResult editTripNameAndDates(Trip trip) {
         System.out.println("Enter the new trip name:");
         String name = InputHandler.getStringInput();
         System.out.println("Enter the new start date (yyyy-mm-dd):");
@@ -67,5 +74,7 @@ public class SelectExecuteStep implements IWizardStep {
 
         tripService.saveTrip(trip);
         System.out.println("Trip has been edited!");
+
+        return WizardResult.CONTINUE;
     }
 }
