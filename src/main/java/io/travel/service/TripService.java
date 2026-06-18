@@ -40,4 +40,7 @@ public class TripService {
         return tripRepository.findByUserIdAndStatusIn(userId, statuses);
     }
 
+    public void deleteTrip(Trip trip) {
+        tripRepository.delete(trip);
+    }
 }

@@ -10,7 +10,8 @@ public class MyTripsWizard implements IWizard {
     public List<IWizardStep> getSteps() {
         return List.of(
                 new SelectMyTripStep(),
-                new SelectActionStep()
+                new SelectActionStep(),
+                new SelectExecuteStep()
         );
     }
 }
